@@ -446,6 +446,10 @@ table {
     font-weight: 500;
 }
 
+.flex-input {
+    display: flex;
+}
+
 input[type=text]:not(.no-style), select:not(.no-style) {
     font-size: .8em;
     padding: .6em .8em;

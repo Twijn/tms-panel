@@ -193,13 +193,14 @@
                                     </h3>
 
                                     <form id="add-shortlink">
-                                        <input type="text" name="sl-name" id="sl-name" placeholder="Shortlink Name" />
-                                        <select name="sl-type">
-                                            <option value="link">Link</option>
-                                            <option value="group">Group</option>
-                                        </select>
-
-                                        <input type="text" name="sl-link" id="sl-link" placeholder="Link" />
+                                        <div class="flex-input">
+                                            <input type="text" name="sl-name" id="sl-name" placeholder="Shortlink Name" />
+                                            <select name="sl-type">
+                                                <option value="link">Link</option>
+                                                <option value="group">Group</option>
+                                            </select>
+                                            <input type="text" name="sl-link" id="sl-link" placeholder="Link" />
+                                        </div>
 
                                         <div class="user-selector" style="display: none;"> 
                                             <div class="user-search" data-type="selector"><div class="search-box"><input type="text" name="search-users" class="search-users-input no-style" placeholder="Type to search..."><button type="submit" aria-label="Search"><i class="fas fa-search"></i></button></div><div class="user-search-results"><div class="waiting">Type something to get results. 🙂</div></div></div>
