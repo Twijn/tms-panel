@@ -446,6 +446,14 @@ table {
     font-weight: 500;
 }
 
+input[type=text]:not(.no-style), select:not(.no-style) {
+    font-size: .8em;
+    padding: .6em .8em;
+    border: 1px solid #f0f0f0;
+    border-radius: .3em;
+    margin: .6em .3em;
+}
+
 .user-section img {
     width: 6em;
     height: 6em;
