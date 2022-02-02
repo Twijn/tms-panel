@@ -298,7 +298,7 @@ const navigate = function(url) {
         setTimeout(function(){oldspan.remove();}, 250);
     }
 
-    $("article").hide();
+    $("article:not(.no-hide)").hide();
     $(`.${page}`).show();
 
     history.pushState({page: page, url: url}, "TMS Admin Panel", url);
