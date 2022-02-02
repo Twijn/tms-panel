@@ -31,7 +31,7 @@ function loadPunishments(type, user) {
                     <div class="ban-message">
                         <img src="${ban.user.profile_image_url}" alt="x" /> <strong>${ban.user.display_name}</strong> was banned from <img src="${ban.channel.profile_image_url}" alt="x" /> <strong>${ban.channel.display_name}</strong>'s channel on <strong>${banTime.toLocaleDateString()}</strong> at <strong>${banTime.toLocaleTimeString()}</strong>.
                         <br/>
-                        <a href="#" class="view-chat-log">Chat Log</a>
+                        <a href="#" class="view-chat-log" onclick="fullChatHistory(${ban.channel.id}, ${ban.user.id});return false;">Chat Log</a>
                     </div>
                 </div>`;
             });
@@ -53,7 +53,7 @@ function loadPunishments(type, user) {
                     <div class="ban-message">
                         <img src="${timeout.user.profile_image_url}" alt="x" /> <strong>${timeout.user.display_name}</strong> was timed out from <img src="${timeout.channel.profile_image_url}" alt="x" /> <strong>${timeout.channel.display_name}</strong>'s channel on <strong>${timeoutTime.toLocaleDateString()}</strong> at <strong>${timeoutTime.toLocaleTimeString()}</strong> for <strong>${timeout.duration} second${timeout.duration === 1 ? '' : 's'}</strong>.
                         <br/>
-                        <a href="#" class="view-chat-log">Chat Log</a>
+                        <a href="#" class="view-chat-log" onclick="fullChatHistory(${timeout.channel.id}, ${timeout.user.id});return false;">Chat Log</a>
                     </div>
                 </div>`;
             });
@@ -63,32 +63,6 @@ function loadPunishments(type, user) {
 
             $(`#${user.id}-bans`).html(bansHtml);
             $(`#${user.id}-timeouts`).html(timeoutsHtml);
-        }
-    });
-}
-
-function loadChatHistory(user) {
-    api.get("chat/overview/" + user.id, function(result) {
-        if (result.success && result.data) {
-            let chatHistory = "";
-
-            let chatterChats = comma(result.data.chatter_overview.total.chats);
-            let chatterChannels = comma(result.data.chatter_overview.total.channels);
-
-            if (result.data.chatter_overview.total.chats > 0) {
-                chatHistory += `<a href="#">${user.display_name} has sent ${chatterChats} message${chatterChats === 1 ? "" : "s"} in ${chatterChannels} channel${chatterChannels === 1 ? "" : "s"}. Click to view.</a>`;
-            }
-
-            let streamerChats = comma(result.data.streamer_overview.total.chats);
-            let streamerChannels = comma(result.data.streamer_overview.total.channels);
-
-            if(result.data.streamer_overview.total.chats > 0) {
-                chatHistory += `<a href="#">${streamerChats} message${streamerChats === 1 ? "" : "s"} has been sent to channel ${user.display_name} from ${streamerChannels} user${streamerChannels === 1 ? "" : "s"}. Click to view.</a>`;
-            }
-
-            if (chatHistory === "") chatHistory = "No chat history for this user!";
-
-            $(`#${user.id}-chat-history`).html(chatHistory);
         }
     });
 }
@@ -214,6 +188,32 @@ function loadUser(type, id, formatFunc) {
             loadDiv();
         } else {
             sendNotification("Failed to retrieve", "Failed to retrieve "+type+" user. Error: " + result.error + "<br/>Contact Twijn#8888 for assistance.", "notification-error");
+        }
+    });
+}
+
+function loadChatHistory(user) {
+    api.get("chat/overview/" + user.id, function(result) {
+        if (result.success && result.data) {
+            let chatHistory = "";
+
+            let chatterChats = comma(result.data.chatter_overview.total.chats);
+            let chatterChannels = comma(result.data.chatter_overview.total.channels);
+
+            if (result.data.chatter_overview.total.chats > 0) {
+                chatHistory += `<a href="#" onclick="fullChatHistory('all',${user.id});return false;">${user.display_name} has sent ${chatterChats} message${chatterChats === 1 ? "" : "s"} in ${chatterChannels} channel${chatterChannels === 1 ? "" : "s"}. Click to view.</a>`;
+            }
+
+            let streamerChats = comma(result.data.streamer_overview.total.chats);
+            let streamerChannels = comma(result.data.streamer_overview.total.channels);
+
+            if(result.data.streamer_overview.total.chats > 0) {
+                chatHistory += `<a href="#" onclick="fullChatHistory(${user.id},'all');return false;">${streamerChats} message${streamerChats === 1 ? "" : "s"} has been sent to channel ${user.display_name} from ${streamerChannels} user${streamerChannels === 1 ? "" : "s"}. Click to view.</a>`;
+            }
+
+            if (chatHistory === "") chatHistory = "No chat history for this user!";
+
+            $(`#${user.id}-chat-history`).html(chatHistory);
         }
     });
 }
