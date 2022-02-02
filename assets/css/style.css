@@ -744,6 +744,23 @@ input[type=text]:not(.no-style), select:not(.no-style) {
     box-shadow: .1em .1em .8em rgba(0,0,0,0.05) inset;
 }
 
+#chat-history-result .log.deleted {
+    opacity: .5;
+    transition: 0.2s opacity;
+}
+
+#chat-history-result .log.deleted > * {
+    text-decoration: line-through;
+}
+
+#chat-history-result .log.deleted:hover {
+    opacity: .75;
+}
+
+#chat-history-result .log.deleted:hover > * {
+    text-decoration: none;
+}
+
 #chat-history-result .log img {
     display: inline-block;
     width: 3em;
@@ -758,8 +775,20 @@ input[type=text]:not(.no-style), select:not(.no-style) {
     vertical-align: top;
 }
 
-#chat-history-result .username {
+#chat-history-result .un-time {
     display: block;
+    margin-bottom: .2em;
+}
+
+#chat-history-result .time {
+    font-size: .8rem;
+    display: inline-block;
+    margin-left: .5em;
+    vertical-align: center;
+    color: #505050;
+}
+
+#chat-history-result .username {
     font-size: 1.05em;
     font-weight: 500;
     text-decoration: none;
@@ -767,6 +796,11 @@ input[type=text]:not(.no-style), select:not(.no-style) {
 
 #chat-history-result .log:hover .username {
     text-decoration: underline;
+}
+
+#chat-history-result .username .fa-badge-check {
+    display: inline-block;
+    margin-left: .25em;
 }
 
 .filler .load-msg {
