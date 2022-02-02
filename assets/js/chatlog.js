@@ -1,3 +1,31 @@
+const inf = new Intl.NumberFormat('en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1});
+
+function formatTime(timestamp) {
+    let curDate = new Date();
+    let tsDate = new Date(timestamp);
+    let secAgo = (Date.now() - timestamp)/1000;
+
+    if (secAgo < 60) {
+        return `${inf.format(secAgo)} second${secAgo === 1 ? "" : "s"} ago`;
+    } else if (secAgo < 3600) {
+        return `${inf.format(secAgo/60)} minute${secAgo === 1 ? "" : "s"} ago`;
+    } else {
+        let relativeDay = tsDate.toLocaleDateString();
+        if (curDate.getFullYear() === tsDate.getFullYear()) {
+            let dayDiff = curDate.getDate() - tsDate.getDate();
+            if (dayDiff === 0) {
+                relativeDay = "Today";
+            } else if (dayDiff === 1) {
+                relativeDay = "Yesterday";
+            } else if (dayDiff < 7) {
+                relativeDay = `${dayDiff} days ago`;
+            }
+        }
+
+        return `${relativeDay} at ${tsDate.toLocaleTimeString()}`;
+    }
+}
+
 function parseChat(log, lastChannel = "") {
     let result = "";
     let userTable = log.user_table;
@@ -13,7 +41,7 @@ function parseChat(log, lastChannel = "") {
                 lastChannel = channel.display_name;
             }
             
-            result += `<div class="log"><img src="${user.profile_image_url}" /><div class="log-content"><a class="username" href="#" onclick="loadTwitchUser(${user.id},'${user.display_name}');return false;" style="color:${entry.color};">${user.display_name}</a>${safeMessage}</div></div>`;
+            result += `<div class="log${entry.deleted ? " deleted":""}"><img src="${user.profile_image_url}" /><div class="log-content"><div class="un-time"><a class="username" href="#" onclick="loadTwitchUser(${user.id},'${user.display_name}');return false;" style="color:${entry.color};">${user.display_name}${user.affiliation == "partner" ? '<i class="fas fa-badge-check"></i>' : ''}</a><span class="time">${formatTime(entry.timesent)}</span></div>${safeMessage}</div></div>`;
         } else if (entry.type === "filler" && lastChannel !== "") {
             result += `<div class="filler" onclick="let x=$(this);getFillerChat(${$("#ch-streamer").val()},${entry.fromTime},${entry.toTime},'${lastChannel}',function(data){x.html(data)});return false;"><span class="load-msg">Load ${entry.messageCount} additional message${entry.messageCount === 1 ? "" : "s"} from other users</span></div>`
         }
@@ -90,6 +118,9 @@ function updateChatUsers(streamer, selected) {
         });
     } else {
         setDefaultStreamers();
+        if (selected !== "all") {
+            $("#ch-user").html(`<option value="all">All Users</option><option selected="selected">${selected}</option>`);
+        }
     }
 }
 
