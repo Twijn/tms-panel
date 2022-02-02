@@ -251,6 +251,16 @@
                 </article>
 
                 <article class="bot-bot-status" style="display: none;"></article>
+
+                <div class="ch-wrapper" style="display: none;">
+                    <article class="chat-history-large no-hide">
+                        <h3>Chat History<i class="fal fa-times"></i></h3>
+                        <form class="chat-selector"><label><select id="ch-streamer" name="streamer"><option value="all">All Streamers</option></select><span>Streamer</span></label><label><select id="ch-user" name="user"><option value="all">All Users</option></select><span>User</span></label></form>
+                        <div id="chat-history-result">
+                            <div class="loading-container center"><div class="loading"><div id="loading"></div></div></div>
+                        </div>
+                    </article>
+                </div>
             </main>
 
             <footer>Made with <img src="/assets/images/bop.png" alt="BOP" width="14px" height="14px" /> by <a href="https://twijn.net" target="__blank">Twijn#8888</a> and X1XX#0001</footer>
@@ -260,6 +270,7 @@
     <script src="/assets/js/jquery.js"> </script>
     <script src="/assets/js/main.js"> </script>
     <script src="/assets/js/search.js"> </script>
+    <script src="/assets/js/chatlog.js"> </script>
     <script src="https://kit.fontawesome.com/107bb78db8.js" crossorigin="anonymous"> </script>
 </body>
 </html>
