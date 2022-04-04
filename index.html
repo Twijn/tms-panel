@@ -26,9 +26,13 @@
     <meta name="theme-color" content="#a970ff">
     <!-- -->
 
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="/assets/css/forms.css">
     <link rel="stylesheet" href="/assets/css/loading.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/search.css">
+    <link rel="stylesheet" href="/assets/css/users.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
     <div class="page">
@@ -71,7 +75,6 @@
 
                     <div class="sidebar-category-content">
                         <a class="services-shortlink-link not-registered" href="#/services/shortlink"><i class="far fa-external-link"></i>Shortlinks</a>
-                        <a class="services-mbm-settings-link not-registered" href="#/services/mbm-settings"><i class="far fa-cog"></i>MBM Settings</a>
                     </div>
                 </div>
             </nav>
@@ -82,7 +85,7 @@
                 <h2><a class="hamburger-menu" href="#menu"><i class="far fa-bars"></i></a><span>Linked Profiles</span></h2>
 
                 <a id="profile-avatar" href="#profile-options">
-                    <img class="profile-picture" src="/assets/images/person.png" alt="Profile Picture" />
+                    <img class="profile-picture" src="/assets/images/person.png" alt="Profile Picture" onerror="failedImage(this);" />
                 </a>
             </header>
 
@@ -194,26 +197,13 @@
                                     </h3>
 
                                     <form id="add-shortlink">
-                                        <div class="flex-input">
-                                            <div>
-                                                <input type="text" name="sl-name" id="sl-name" class="blend-input no-style" placeholder="Shortlink Name" />
-                                                <small>For example </small>
-                                            </div>
-                                            <select name="sl-type">
-                                                <option value="link">Link</option>
-                                                <option value="group">Group</option>
-                                            </select>
-                                            <input type="text" name="sl-link" id="sl-link" placeholder="Link" />
+                                        <div class="shortlink-div">
+                                            <label for="link">tms.to/</label><input type="text" name="link" id="link" class="no-style subtle-input">
                                         </div>
-
-                                        <div class="user-selector" style="display: none;"> 
-                                            <div class="user-search" data-type="selector"><div class="search-box"><input type="text" name="search-users" class="search-users-input no-style" placeholder="Type to search..."><button type="submit" aria-label="Search"><i class="fas fa-search"></i></button></div><div class="user-search-results"><div class="waiting">Type something to get results. 🙂</div></div></div>
-
-                                            <input type="hidden" name="sl-users" class="selector-input" />
-
-                                            <div class="selected"></div>
+                                        <div class="shortlink-type">
+                                            <label><input type="radio" name="shortlink-type" id="shortlink-type-link" checked="checked"> Link</label>
+                                            <label><input type="radio" name="shortlink-type" id="shortlink-type-group"> Group</label>
                                         </div>
-
                                     </form>
                                 </section>
                             </div>
@@ -227,23 +217,6 @@
                                     </h3>
 
                                     <div id="shortlinks">testing</div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="services-mbm-settings" style="display: none;">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col col-md-12">
-                                <section>
-                                    <h3>
-                                        MBM Settings
-                                        <small>Edit MBM settings for your server</small>
-                                    </h3>
-
-                                    what's up my guy
                                 </section>
                             </div>
                         </div>
@@ -271,6 +244,7 @@
     <script src="/assets/js/main.js"> </script>
     <script src="/assets/js/search.js"> </script>
     <script src="/assets/js/chatlog.js"> </script>
+    <script src="/assets/js/shortlinks.js"> </script>
     <script src="https://kit.fontawesome.com/107bb78db8.js" crossorigin="anonymous"> </script>
 </body>
 </html>

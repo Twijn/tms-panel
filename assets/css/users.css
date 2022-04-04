@@ -1,0 +1,362 @@
+.overview {
+    margin-bottom: 1em;
+}
+
+.overview-text {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: .6em;
+}
+
+.overview-text ul {
+    font-size: .8em;
+    padding: 0;
+    list-style-type: none;
+}
+
+.overview-text strong {
+    font-weight: 500;
+    color: #2d3e4e;
+}
+
+.alert-bubble {
+    display: inline-block;
+    font-size: .8em;
+    font-weight: 300;
+    background-color: #2d3e4e;
+    color: #fff;
+    padding: .2em .3em;
+    border-radius: .5em;
+}
+
+.punishment {
+    display: flex;
+    background-color: #eff2f3;
+    border: 1px solid #dee2e4;
+    border-radius: .3em;
+    padding: .4em .6em;
+    margin: .4em 0;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.2);
+}
+
+.punishment .users {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.punishment .connector {
+    position: relative;
+    display: inline-block;
+    width: 2.5em;
+    margin: 0 .25em;
+    height: 1.5em;
+    border-top: 1px solid #384d61;
+}
+
+.punishment .connector i {
+    color: #384d61;
+    font-size: .8rem;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #eff2f3;
+    padding: .25em;
+}
+
+.punishment .active i {
+    color: #228f22;
+}
+
+.punishment .inactive i {
+    color: #ad3737;
+}
+
+.punishment .user {
+    position: relative;
+    display: inline-block;
+    width: 3em;
+    height: 3em;
+}
+
+.punishment .user img {
+    width: 3em;
+    height: 3em;
+    border-radius: 1.5em;
+}
+
+.punishment .user .name, .active i::after, .inactive i::after {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    background-color: rgba(0,0,0,0.8);
+    color: #fff;
+    box-shadow: .1em .1em .3em rgba(0,0,0,0.2);
+    visibility: hidden;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(100% + .3em);
+    padding: .2em .3em;
+    border-radius: .2em;
+}
+
+.punishment .user:hover .name {
+    visibility: visible;
+}
+
+.active i::after {
+    content: 'Active';
+}
+
+.inactive i::after {
+    content: 'Inactive';
+}
+
+.inactive i:hover::after, .active i:hover::after {
+    visibility: visible;
+}
+
+.ban-message {
+    font-size: .9rem;
+    margin-left: 1em;
+}
+
+.ban-message strong {
+    font-weight: 500;
+}
+
+.ban-message img {
+    width: .9rem;
+    height: .9rem;
+    border-radius: .45em;
+    vertical-align: baseline;
+}
+
+.view-chat-log {
+    font-size: .65rem;
+}
+
+.chat-history a {
+    display: block;
+    margin: .2em 0;
+    font-size: .85rem;
+}
+
+
+.ch-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 10px rgb(0 0 0 / 10%);
+    z-index: 15;
+}
+
+.chat-history-large {
+    width: calc(100% - 4em);
+    height: calc(100% - 4em);
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    position: absolute;
+    background-color: #fff;
+    padding: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.chat-history-large h3 {
+    position: relative;
+    font-size: 1rem;
+    padding: .8em 1.2em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+.chat-history-large h3 i {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    padding: 1em;
+    transform: translateY(-50%);
+    color: #888888;
+    transition: 0.3s color;
+}
+
+.chat-history-large h3 i:hover {
+    color: #000;
+}
+
+.chat-selector {
+    display: flex;
+}
+
+.chat-selector label {
+    width: 50%;
+}
+
+.chat-selector select {
+    display: block;
+    width: calc(100% - 1em);
+    margin: 0;
+    border-left: none;
+    border-radius: 0;
+}
+
+.chat-selector label:first-child select {
+    margin-left: 1em;
+    border-left: 1px solid #f0f0f0;
+    border-radius: .3em 0 0 .3em;
+}
+
+.chat-selector label:last-child select {
+    margin-right: 1em;
+    border-right: 1px solid #f0f0f0;
+    border-radius: 0 .3em .3em 0;
+}
+
+.chat-selector span {
+    font-size: .75rem;
+    margin-top: .4em;
+    color: #222;
+    display: block;
+    text-align: center;
+}
+
+#chat-history-result {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+#chat-history-result h4 img {
+    width: 1em;
+    height: 1em;
+    border-radius: .5em;
+    margin-right: .3em;
+}
+
+#chat-history-result h4 {
+    font-family: 'Roboto', sans-serif;
+    font-size: .95rem;
+    font-weight: 700;
+    color: #222;
+    padding: 1em 1.4em;
+    text-transform: lowercase;
+}
+
+#chat-history-result .log {
+    padding: .5em .75em;
+    margin: .5em .75em;
+    background-color: #fdfdfd;
+    border-radius: .5em;
+    box-shadow: .1em .1em .8em rgba(0,0,0,0.05) inset;
+}
+
+#chat-history-result .log.deleted {
+    opacity: .5;
+    transition: 0.2s opacity;
+}
+
+#chat-history-result .log.deleted > * {
+    text-decoration: line-through;
+}
+
+#chat-history-result .log.deleted:hover {
+    opacity: .75;
+}
+
+#chat-history-result .log.deleted:hover > * {
+    text-decoration: none;
+}
+
+#chat-history-result .log img {
+    display: inline-block;
+    width: 3em;
+    height: 3em;
+    border-radius: 1.5em;
+}
+
+#chat-history-result .log-content {
+    display: inline-block;
+    width: calc(100% - 4em);
+    margin-left: 1em;
+    vertical-align: top;
+}
+
+#chat-history-result .un-time {
+    display: block;
+    margin-bottom: .2em;
+}
+
+#chat-history-result .time {
+    font-size: .8rem;
+    display: inline-block;
+    margin-left: .5em;
+    vertical-align: center;
+    color: #505050;
+}
+
+#chat-history-result .username {
+    font-size: 1.05em;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+#chat-history-result .log:hover .username {
+    text-decoration: underline;
+}
+
+#chat-history-result .username .fa-badge-check {
+    display: inline-block;
+    margin-left: .25em;
+}
+
+.filler .load-msg {
+    display: block;
+    font-size: .8rem;
+    text-align: center;
+    padding: .4em;
+    margin: .6rem;
+    cursor: pointer;
+}
+
+.filler:hover .load-msg {
+    text-decoration: underline;
+}
+
+#chat-history-result small {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    width: 100%;
+    max-width: 18em;
+    text-align: center;
+    opacity: .3;
+}
+
+@media only screen and (min-width: 800px) {
+    h2 span {
+        position: absolute;
+        width: 16em;
+        opacity: 1;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        transition: 0.2s;
+    }
+
+    h2 span.new {
+        opacity: 0;
+        left: 1em;
+    }
+
+    h2 span.old {
+        opacity: 0;
+        left: -1em;
+    }
+}
