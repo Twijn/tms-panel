@@ -1,6 +1,10 @@
 const COOKIE_DOMAIN = "twitchmodsquad.com";
-const API_URI = "https://api.twitchmodsquad.com/";
+const API_URI = "http://localhost:8080/";
 const DISCORD_AVATAR_URI = "https://cdn.discordapp.com/";
+
+function failedImage(thisObj) {
+    $(thisObj).attr("src", "/assets/images/person.png");
+}
 
 let traceList = {};
 
@@ -57,7 +61,7 @@ const listeners = {
             accounts.forEach(account => {
                 table += `
                 <tr class="account-row">
-                    <td><img class="rounded-square-avatar" src="${account.profile_image_url}" alt="Profile picture for Twitch user '${account.display_name}'"></td>
+                    <td><img class="rounded-square-avatar" src="${account.profile_image_url}" alt="Profile picture for Twitch user '${account.display_name}'" onerror="failedImage(this);"></td>
                     <td>
                         <span class="account-name">${account.display_name}${account.affiliation === "partner" ? '&nbsp;<i class=\"fas fa-badge-check\"></i></span>' : ''}</span>
                         <span class="account-stats">${account.follower_count !== null ? `<span class="highlight">${comma(account.follower_count)}</span> follower${account.follower_count === 1 ? '' : 's'} • ` : ''}${account.view_count !== null ? `<span class="highlight">${comma(account.view_count)}</span> views • ` : ''}User ID <span class="highlight">${account.id}</span>${account.affiliation === null ? '' : (account.affiliation === "partner" ? " • <span class=\"highlight\">Partner <i class=\"far fa-badge-check\"></i></span>" : " • <span class=\"highlight\">Affiliate</span>")}</span>
@@ -90,7 +94,7 @@ const listeners = {
 
                 table += `
                 <tr class="account-row">
-                    <td><img class="rounded-square-avatar" src="${pfp}" alt="Profile picture for Discord user '${account.name}'"></td>
+                    <td><img class="rounded-square-avatar" src="${pfp}" alt="Profile picture for Discord user '${account.name}'" onerror="failedImage(this);"></td>
                     <td>
                         <span class="account-name">${account.name}</span>
                         <span class="account-stats">Tag <span class="highlight">${account.name + "#" + account.discriminator}</span> • User ID <span class="highlight">${account.id}</span></span>
@@ -116,7 +120,7 @@ const listeners = {
             streamers.forEach(streamer => {
                 identities += `
                 <tr class="account-row">
-                    <td><img class="rounded-square-avatar" src="${streamer.avatar_url}" alt="Profile picture for Identity '${streamer.name}'"></td>
+                    <td><img class="rounded-square-avatar" src="${streamer.avatar_url}" alt="Profile picture for Identity '${streamer.name}'" onerror="failedImage(this);"></td>
                     <td>
                         <span class="account-name">${streamer.name}</span>
                         <span class="account-stats"><span class="highlight">${streamer.twitchAccounts.length}</span> twitch account${streamer.twitchAccounts.length === 1 ? "" : "s"} • <span class="highlight">${streamer.discordAccounts.length}</span> discord account${streamer.discordAccounts.length === 1 ? "" : "s"} • Identity ID <span class="highlight">${streamer.id}</span></span>
@@ -127,7 +131,7 @@ const listeners = {
                 streamer.twitchAccounts.forEach(account => {
                     twitch += `
                     <tr class="account-row">
-                        <td><img class="rounded-square-avatar" src="${account.profile_image_url}" alt="Profile picture for Twitch user '${account.display_name}'"></td>
+                        <td><img class="rounded-square-avatar" src="${account.profile_image_url}" alt="Profile picture for Twitch user '${account.display_name}'" onerror="failedImage(this);"></td>
                         <td>
                             <span class="account-name">${account.display_name}${account.affiliation === "partner" ? '&nbsp;<i class=\"fas fa-badge-check\"></i></span>' : ''}</span>
                             <span class="account-stats">${account.follower_count !== null ? `<span class="highlight">${comma(account.follower_count)}</span> follower${account.follower_count === 1 ? '' : 's'} • ` : ''}${account.view_count !== null ? `<span class="highlight">${comma(account.view_count)}</span> views • ` : ''}User ID <span class="highlight">${account.id}</span>${account.affiliation === null ? '' : (account.affiliation === "partner" ? " • <span class=\"highlight\">Partner <i class=\"far fa-badge-check\"></i></span>" : " • <span class=\"highlight\">Affiliate</span>")}</span>
@@ -146,7 +150,7 @@ const listeners = {
     
                     discord += `
                     <tr class="account-row">
-                        <td><img class="rounded-square-avatar" src="${pfp}" alt="Profile picture for Discord user '${account.name}'"></td>
+                        <td><img class="rounded-square-avatar" src="${pfp}" alt="Profile picture for Discord user '${account.name}'" onerror="failedImage(this);"></td>
                         <td>
                             <span class="account-name">${account.name}</span>
                             <span class="account-stats">Tag <span class="highlight">${account.name + "#" + account.discriminator}</span> • User ID <span class="highlight">${account.id}</span></span>
@@ -190,7 +194,7 @@ const listeners = {
                 node.channels.forEach(account => {
                     moduleCode += `
                     <tr class="account-row">
-                        <td><img class="rounded-square-avatar" src="${account.profile_image_url}" alt="Profile picture for Twitch user '${account.display_name}'"></td>
+                        <td><img class="rounded-square-avatar" src="${account.profile_image_url}" alt="Profile picture for Twitch user '${account.display_name}'" onerror="failedImage(this);"></td>
                         <td>
                             <span class="account-name">${account.display_name}${account.affiliation === "partner" ? '&nbsp;<i class=\"fas fa-badge-check\"></i></span>' : ''}</span>
                             <span class="account-stats">${account.follower_count !== null ? `<span class="highlight">${comma(account.follower_count)}</span> follower${account.follower_count === 1 ? '' : 's'} • ` : ''}${account.view_count !== null ? `<span class="highlight">${comma(account.view_count)}</span> views • ` : ''}User ID <span class="highlight">${account.id}</span>${account.affiliation === null ? '' : (account.affiliation === "partner" ? " • <span class=\"highlight\">Partner <i class=\"far fa-badge-check\"></i></span>" : " • <span class=\"highlight\">Affiliate</span>")}</span>

@@ -1,5 +1,9 @@
 const inf = new Intl.NumberFormat('en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1});
 
+const dayOfYear = function(date) {
+    return Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+}
+
 function formatTime(timestamp) {
     let curDate = new Date();
     let tsDate = new Date(timestamp);
@@ -11,8 +15,9 @@ function formatTime(timestamp) {
         return `${inf.format(secAgo/60)} minute${secAgo === 1 ? "" : "s"} ago`;
     } else {
         let relativeDay = tsDate.toLocaleDateString();
+
         if (curDate.getFullYear() === tsDate.getFullYear()) {
-            let dayDiff = curDate.getDate() - tsDate.getDate();
+            let dayDiff = dayOfYear(curDate) - dayOfYear(tsDate);
             if (dayDiff === 0) {
                 relativeDay = "Today";
             } else if (dayDiff === 1) {
@@ -37,13 +42,13 @@ function parseChat(log, lastChannel = "") {
             let safeMessage = entry.message.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
             if (lastChannel !== channel.display_name) {
-                result += `<h4><img src="${channel.profile_image_url}" aria-hidden="true"> #${channel.display_name}</h4>`
+                result += `<h4><img src="${channel.profile_image_url}" aria-hidden="true" onerror="failedImage(this);"> #${channel.display_name}</h4>`
                 lastChannel = channel.display_name;
             }
             
-            result += `<div class="log${entry.deleted ? " deleted":""}"><img src="${user.profile_image_url}" /><div class="log-content"><div class="un-time"><a class="username" href="#" onclick="loadTwitchUser(${user.id},'${user.display_name}');return false;" style="color:${entry.color};">${user.display_name}${user.affiliation == "partner" ? '<i class="fas fa-badge-check"></i>' : ''}</a><span class="time">${formatTime(entry.timesent)}</span></div>${safeMessage}</div></div>`;
+            result += `<div class="log${entry.deleted ? " deleted":""}"><img src="${user.profile_image_url}" onerror="failedImage(this);" /><div class="log-content"><div class="un-time"><a class="username" href="#" onclick="loadTwitchUser(${user.id},'${user.display_name}');return false;" style="color:${entry.color};">${user.display_name}${user.affiliation == "partner" ? '<i class="fas fa-badge-check"></i>' : ''}</a><span class="time">${formatTime(entry.timesent)}</span></div>${safeMessage}</div></div>`;
         } else if (entry.type === "filler" && lastChannel !== "") {
-            result += `<div class="filler" onclick="let x=$(this);getFillerChat(${$("#ch-streamer").val()},${entry.fromTime},${entry.toTime},'${lastChannel}',function(data){x.html(data)});return false;"><span class="load-msg">Load ${entry.messageCount} additional message${entry.messageCount === 1 ? "" : "s"} from other users</span></div>`
+            result += `<div class="filler" onclick="let x=$(this);getFillerChat('${$("#ch-streamer").val()}',${entry.fromTime},${entry.toTime},'${lastChannel}',function(data){x.html(data)});return false;"><span class="load-msg">Load ${entry.messageCount} additional message${entry.messageCount === 1 ? "" : "s"} from other users</span></div>`
         }
     });
 

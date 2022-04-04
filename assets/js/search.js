@@ -19,17 +19,17 @@ function loadPunishments(type, user) {
                 bansHtml += `<div class="punishment ban">
                     <div class="users">
                         <div class="user">
-                            <img src="${ban.channel.profile_image_url}" alt="404" />
+                            <img src="${ban.channel.profile_image_url}" alt="404" onerror="failedImage(this);" />
                             <span class="name">${ban.channel.display_name}</span>
                         </div>
                         <div class="connector ${ban.active ? "active" : "inactive"}"><i class="fas fa-ban"></i></div>
                         <div class="user">
-                            <img src="${ban.user.profile_image_url}" alt="404" />
+                            <img src="${ban.user.profile_image_url}" alt="404" onerror="failedImage(this);" />
                             <span class="name">${ban.user.display_name}</span>
                         </div>
                     </div>
                     <div class="ban-message">
-                        <img src="${ban.user.profile_image_url}" alt="x" /> <strong>${ban.user.display_name}</strong> was banned from <img src="${ban.channel.profile_image_url}" alt="x" /> <strong>${ban.channel.display_name}</strong>'s channel on <strong>${banTime.toLocaleDateString()}</strong> at <strong>${banTime.toLocaleTimeString()}</strong>.
+                        <img src="${ban.user.profile_image_url}" alt="x" onerror="failedImage(this);" /> <strong>${ban.user.display_name}</strong> was banned from <img src="${ban.channel.profile_image_url}" onerror="failedImage(this);" alt="x" /> <strong>${ban.channel.display_name}</strong>'s channel on <strong>${banTime.toLocaleDateString()}</strong> at <strong>${banTime.toLocaleTimeString()}</strong>.
                         <br/>
                         <a href="#" class="view-chat-log" onclick="fullChatHistory(${ban.channel.id}, ${ban.user.id});return false;">Chat Log</a>
                     </div>
@@ -41,17 +41,17 @@ function loadPunishments(type, user) {
                 timeoutsHtml += `<div class="punishment timeout">
                     <div class="users">
                         <div class="user">
-                            <img src="${timeout.channel.profile_image_url}" alt="404" />
+                            <img src="${timeout.channel.profile_image_url}" alt="404" onerror="failedImage(this);" />
                             <span class="name">${timeout.channel.display_name}</span>
                         </div>
                         <div class="connector ${timeout.active ? "active" : "inactive"}"><i class="fas fa-ban"></i></div>
                         <div class="user">
-                            <img src="${timeout.user.profile_image_url}" alt="404" />
+                            <img src="${timeout.user.profile_image_url}" alt="404" onerror="failedImage(this);" />
                             <span class="name">${timeout.user.display_name}</span>
                         </div>
                     </div>
                     <div class="ban-message">
-                        <img src="${timeout.user.profile_image_url}" alt="x" /> <strong>${timeout.user.display_name}</strong> was timed out from <img src="${timeout.channel.profile_image_url}" alt="x" /> <strong>${timeout.channel.display_name}</strong>'s channel on <strong>${timeoutTime.toLocaleDateString()}</strong> at <strong>${timeoutTime.toLocaleTimeString()}</strong> for <strong>${timeout.duration} second${timeout.duration === 1 ? '' : 's'}</strong>.
+                        <img src="${timeout.user.profile_image_url}" alt="x" onerror="failedImage(this);" /> <strong>${timeout.user.display_name}</strong> was timed out from <img src="${timeout.channel.profile_image_url}" alt="x" onerror="failedImage(this);" /> <strong>${timeout.channel.display_name}</strong>'s channel on <strong>${timeoutTime.toLocaleDateString()}</strong> at <strong>${timeoutTime.toLocaleTimeString()}</strong> for <strong>${timeout.duration} second${timeout.duration === 1 ? '' : 's'}</strong>.
                         <br/>
                         <a href="#" class="view-chat-log" onclick="fullChatHistory(${timeout.channel.id}, ${timeout.user.id});return false;">Chat Log</a>
                     </div>
@@ -71,6 +71,8 @@ function formatTwitchUser(user) {
     loadPunishments("twitch", user);
     loadChatHistory(user);
 
+    $("#ch-wrapper").fadeOut(200);
+
 return `<div class="col col-md-6">
     <section class="user-section twitch-user-section">
         <h3>
@@ -79,7 +81,7 @@ return `<div class="col col-md-6">
         </h3>
 
         <div class="overview">
-            <img src="${user.profile_image_url}" alt="Profile picture for ${user.display_name}" />
+            <img src="${user.profile_image_url}" alt="Profile picture for ${user.display_name}" onerror="failedImage(this);" />
 
             <div class="overview-text">
                 <h4>${user.display_name}${user.affiliation === "partner" ? '&nbsp;<i class=\"fas fa-badge-check\"></i></span>' : ''}<span class="id" aria-hidden="true">${user.id}</span></h4>
@@ -122,7 +124,7 @@ return `<div class="col col-md-6">
         </h3>
 
         <div class="overview">
-            <img src="${user.avatar_url}" alt="Profile picture for ${user.name}#${user.discriminator}" />
+            <img src="${user.avatar_url}" alt="Profile picture for ${user.name}#${user.discriminator}" onerror="failedImage(this);" />
 
             <div class="overview-text">
                 <h4>@${user.name}#${user.discriminator}<span class="id" aria-hidden="true">${user.id}</span></h4>
@@ -253,7 +255,7 @@ $(document).ready(function() {
                 let link = `loadIdentity(${identity.id}, '${identity.name}')`;
                 
                 if (type === "selector") link = "selectorAddUser($(this).parent().parent());";
-                identities += `<div class="search-result" onclick="${link}"><img src="${identity.avatar_url}" alt="404" /><span class="name">${identity.name}</span><span class="info"><strong>${identity.discordAccounts.length}</strong> discord account${identity.discordAccounts.length === 1 ? "" : "s"} • <strong>${identity.twitchAccounts.length}</strong> twitch account${identity.twitchAccounts.length === 1 ? "" : "s"}</span></div>`;
+                identities += `<div class="search-result" onclick="${link}"><img src="${identity.avatar_url}" alt="404" onerror="failedImage(this);" /><span class="name">${identity.name}</span><span class="info"><strong>${identity.discordAccounts.length}</strong> discord account${identity.discordAccounts.length === 1 ? "" : "s"} • <strong>${identity.twitchAccounts.length}</strong> twitch account${identity.twitchAccounts.length === 1 ? "" : "s"}</span></div>`;
             });
 
             data.twitchAccountResults.forEach(twitchAccount => {
@@ -269,7 +271,7 @@ $(document).ready(function() {
                 }
                 if (type === "selector") link = "selectorAddUser($(this).parent().parent());";
                 let affiliation = (twitchAccount.affiliation === "partner" ? " • <strong>Partner</strong> <i class=\"fas fa-badge-check\"></i>" : (twitchAccount.affiliation === "affiliate" ? " • <strong>Affiliate</strong>" : ""));
-                twitchProfiles += `<div class="search-result" onclick="${link}"><img src="${twitchAccount.profile_image_url}" alt="404" /><span class="name">${twitchAccount.display_name}</span><span class="info"><strong>${follower_count}</strong> followers • <strong>${view_count}</strong> views • User ID <strong>${twitchAccount.id}</strong>${affiliation}</span></div>`;
+                twitchProfiles += `<div class="search-result" onclick="${link}"><img src="${twitchAccount.profile_image_url}" alt="404" onerror="failedImage(this);" /><span class="name">${twitchAccount.display_name}</span><span class="info"><strong>${follower_count}</strong> followers • <strong>${view_count}</strong> views • User ID <strong>${twitchAccount.id}</strong>${affiliation}</span></div>`;
             });
 
             data.discordAccountResults.forEach(discordAccount => {
@@ -280,7 +282,7 @@ $(document).ready(function() {
                     link = `loadDiscordUser(${discordAccount.id}, '${discordAccount.name}')`;
                 }
                 if (type === "selector") link = "selectorAddUser($(this).parent().parent());";
-                discordProfiles += `<div class="search-result" onclick="${link}"><img src="${discordAccount.avatar_url}" alt="404" /><span class="name">${discordAccount.name}</span><span class="info"><strong>${discordAccount.name}#${discordAccount.discriminator}</strong> • User ID <strong>${discordAccount.id}</strong></span></div>`;
+                discordProfiles += `<div class="search-result" onclick="${link}"><img src="${discordAccount.avatar_url}" alt="404" onerror="failedImage(this);" /><span class="name">${discordAccount.name}</span><span class="info"><strong>${discordAccount.name}#${discordAccount.discriminator}</strong> • User ID <strong>${discordAccount.id}</strong></span></div>`;
             });
 
             if (identities !== "") {
