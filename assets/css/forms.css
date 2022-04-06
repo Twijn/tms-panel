@@ -14,3 +14,13 @@
 .subtle-input:focus {
     border-bottom-color: rgba(0,0,0,0.3);
 }
+
+.button {
+    font-size: .9rem;
+    padding: .6em 1em;
+    background-color: #436381;
+    color: #ffffff;
+    border: none;
+    border-radius: .3em;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}

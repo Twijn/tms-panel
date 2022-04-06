@@ -1,5 +1,5 @@
 const COOKIE_DOMAIN = "twitchmodsquad.com";
-const API_URI = "https://api.twitchmodsquad.com/";
+const API_URI = "http://localhost:8080/";
 const DISCORD_AVATAR_URI = "https://cdn.discordapp.com/";
 
 function failedImage(thisObj) {
